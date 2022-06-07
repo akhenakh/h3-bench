@@ -13,3 +13,11 @@ BenchmarkFromToCGO-4             1870581              3172 ns/op              32
 PASS
 ok      github.com/akhenakh/h3-bench    30.984s
 ```
+
+Comparing geoToH3
+```
+cat testdata/populated.csv  testdata/populated.csv testdata/populated.csv testdata/populated.csv testdata/populated.csv testdata/populated.csv  testdata/populated.csv testdata/populated.csv testdata/populated.csv testdata/populated.csv testdata/populated.csv  testdata/populated.csv testdata/populated.csv testdata/populated.csv testdata/populated.csv testdata/populated.csv  testdata/populated.csv testdata/populated.csv testdata/populated.csv testdata/populated.csv testdata/populated.csv  testdata/populated.csv testdata/populated.csv testdata/populated.csv testdata/populated.csv testdata/populated.csv  testdata/populated.csv testdata/populated.csv testdata/populated.csv testdata/populated.csv | time ./h3-3.7.2/build/bin/geoToH3 -r 9  > /dev/null
+~/Downloads/h3-3.7.2/build/bin/geoToH3 -r 9 > /dev/null  0.63s user 0.00s system 99% cpu 0.633 total
+cat testdata/populated.csv  testdata/populated.csv testdata/populated.csv testdata/populated.csv testdata/populated.csv testdata/populated.csv  testdata/populated.csv testdata/populated.csv testdata/populated.csv testdata/populated.csv testdata/populated.csv  testdata/populated.csv testdata/populated.csv testdata/populated.csv testdata/populated.csv testdata/populated.csv  testdata/populated.csv testdata/populated.csv testdata/populated.csv testdata/populated.csv testdata/populated.csv  testdata/populated.csv testdata/populated.csv testdata/populated.csv testdata/populated.csv testdata/populated.csv  testdata/populated.csv testdata/populated.csv testdata/populated.csv testdata/populated.csv | time ./cmd/geoToH3/geoToH3 -resolution 9  > /dev/null
+./cmd/geoToH3/geoToH3 -resolution 9 > /dev/null  0.53s user 0.09s system 102% cpu 0.607 total
+```

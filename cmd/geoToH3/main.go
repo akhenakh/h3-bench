@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"runtime/pprof"
 	"strconv"
 	"strings"
 
@@ -13,13 +14,27 @@ import (
 )
 
 func main() {
-	var resolution = flag.Int("resolution", 15, "resolution 0-15 inclusive")
+	var (
+		resolution = flag.Int("resolution", 15, "resolution 0-15 inclusive")
+		cpuprofile = flag.String("cpuprofile", "", "write cpu profile to file")
+	)
 	flag.Parse()
+
+	if *cpuprofile != "" {
+		f, err := os.Create(*cpuprofile)
+		if err != nil {
+			log.Fatal(err)
+		}
+		pprof.StartCPUProfile(f)
+		defer pprof.StopCPUProfile()
+	}
 
 	fileScanner := bufio.NewScanner(os.Stdin)
 
 	fileScanner.Split(bufio.ScanLines)
 	g := h3.GeoCoord{}
+	b := h3.NewBatch()
+
 	for fileScanner.Scan() {
 		coords := strings.Split(fileScanner.Text(), " ")
 		lat, err := strconv.ParseFloat(coords[0], 64)
@@ -33,7 +48,7 @@ func main() {
 		}
 		g.Longitude = lng
 
-		h := h3.FromGeo(g, *resolution)
+		h := b.FromGeo(g, *resolution)
 		fmt.Printf("%#x\n", h)
 	}
 }

@@ -16,3 +16,4 @@
 cmd/c/c
 cmd/ccgobatch/ccgobatch
 cmd/ccgonobatch/ccgpnobatch
+cmd/geoToH3/geoToH3
