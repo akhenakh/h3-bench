@@ -49,6 +49,6 @@ func main() {
 		g.Longitude = lng
 
 		h := b.FromGeo(g, *resolution)
-		fmt.Printf("%#x\n", h)
+		fmt.Printf("%x\n", h)
 	}
 }
